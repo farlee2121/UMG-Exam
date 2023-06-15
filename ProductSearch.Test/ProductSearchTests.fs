@@ -6,29 +6,7 @@ open FsCheck
 open Expecto.TestApi
 open ProductSearch
 
-module AcceptanceData =
 
-    let createProduct artist title usages startDate (endDate: string Option) : Product = 
-        {
-            Artist = artist
-            Title = title
-            AllowedUsages = usages
-            StartDate = DateTime.Parse(startDate)
-            EndDate = endDate |> Option.map DateTime.Parse
-        }
-    let exampleProducts = [
-        createProduct "Tinie Tempah" "Frisky (Live from SoHo)" ["digital download"; "streaming"] "02-01-2012" None
-        createProduct "Tinie Tempah" "Miami 2 Ibiza" ["digital download"] "02-01-2012" None
-        createProduct "Tinie Tempah" "Till I'm Gone" ["digital download"] "08-01-2012" None
-        createProduct "Monkey Claw" "Black Mountain" ["digital download"] "02-01-2012" None
-        createProduct "Monkey Claw" "Iron Horse" ["digital download"; "streaming"] "06-01-2012" None
-        createProduct "Monkey Claw" "Motor Mouth" ["digital download"; "streaming"] "03-01-2011" None
-        createProduct "Monkey Claw" "Christmas Special" ["streaming"] "12-25-2012" (Some "12-31-2012")
-    ]
-    let examplePartners = [
-        {Id = "ITunes"; Usage = "digital download"}
-        {Id = "Youtube"; Usage = "streaming"}
-    ]
 
 open AcceptanceData
 
@@ -86,7 +64,7 @@ let makeProductTests (label:string) sutFactory =
                     createProduct "Monkey Claw" "Motor Mouth" ["digital download"; "streaming"] "03-01-2011" None
                     createProduct "Tinie Tempah" "Frisky (Live from SoHo)" ["digital download"; "streaming"] "02-01-2012" None
                 ]
-                let actual = sut.search "Youtube" (DateTime.Parse("12-27-2012"))
+                let actual = sut.search "YouTube" (DateTime.Parse("12-27-2012"))
 
                 let likeness (products:Product list) = 
                     products 
@@ -103,7 +81,7 @@ let makeProductTests (label:string) sutFactory =
                     createProduct "Monkey Claw" "Motor Mouth" ["digital download"; "streaming"] "03-01-2011" None
                     createProduct "Tinie Tempah" "Frisky (Live from SoHo)" ["digital download"; "streaming"] "02-01-2012" None
                 ]
-                let actual = sut.search "Youtube" (DateTime.Parse("04-01-2012"))
+                let actual = sut.search "YouTube" (DateTime.Parse("04-01-2012"))
 
                 let likeness (products:Product list) = 
                     products 

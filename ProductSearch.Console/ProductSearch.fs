@@ -38,3 +38,43 @@ module ProductSearch =
             && (product.EndDate |> Option.map (fun ed -> date <= ed) |> Option.defaultValue true)
         )
 
+    open FSharp.Data
+
+    module String =
+        let trim (s: string)= s.Trim()
+        let split (separator:string) (s: string)= s.Split(separator) |> List.ofSeq
+
+    type ProductFile = CsvProvider<
+        Schema="Artist (string),Title (string),Usages (string),StartDate (date),EndDate (date?)",
+        Separators="|",
+        HasHeaders=false, 
+        IgnoreErrors = true>
+
+    let parseProducts text = 
+        ProductFile.ParseRows (text)
+        |> Array.map (fun (row)  ->
+            {
+                Artist = row.Artist
+                Title = row.Title
+                AllowedUsages = row.Usages |> String.split "," |> List.map String.trim
+                StartDate = row.StartDate
+                EndDate = Option.ofNullable row.EndDate
+            }
+        )
+        |> List.ofArray
+
+    type PartnerFile = CsvProvider<
+        Separators="|",
+        HasHeaders=false, 
+        Schema="Partner (string),Usage (string)">
+
+    let parsePartners text = 
+        PartnerFile.ParseRows (text)
+        |> Array.skip 1
+        |> Array.map (fun (row)  ->
+            {
+                Id = row.Partner
+                Usage = row.Usage
+            }
+        )
+        |> List.ofArray

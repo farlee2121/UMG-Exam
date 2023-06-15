@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Compile Include="ExpectoTestApi.fs" />
+    <Compile Include="AcceptanceExamples.fs" />
+    <Compile Include="ParsingTests.fs" />
     <Compile Include="ProductSearchTests.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
