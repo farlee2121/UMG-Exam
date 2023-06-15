@@ -37,6 +37,7 @@ module ProductSearch =
             && product.StartDate <= date 
             && (product.EndDate |> Option.map (fun ed -> date <= ed) |> Option.defaultValue true)
         )
+        |> List.sortBy (fun p -> (p.Artist, p.Title))
 
     open FSharp.Data
 
