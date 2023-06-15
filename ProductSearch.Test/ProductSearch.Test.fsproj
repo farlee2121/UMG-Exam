@@ -7,14 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Sample.fs" />
+    <Compile Include="ExpectoTestApi.fs" />
+    <Compile Include="ProductSearchTests.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Expecto" Version="9.0.4" />
+	  <PackageReference Include="Expecto" Version="9.0.4" />
+	  <PackageReference Include="Expecto.FsCheck" Version="9.0.4" />
     <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.13.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.2" />
+    <ProjectReference Include="..\ProductSearch.Console\ProductSearch.Console.fsproj" />
     <PackageReference Update="FSharp.Core" Version="6.0.7" />
   </ItemGroup>
 </Project>
